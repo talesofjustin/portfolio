@@ -1,0 +1,16 @@
+---
+// every project has its own address; it is the same one-page site, opened on that project
+import Site from '../../components/Site.astro';
+import { getContent } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const c = await getContent();
+  return c.projects.map((p: any) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as any;
+const c = await getContent();
+const m = c.media as any;
+const n = p.stills[0];
+const img = m[n]?.img ? `${m[n].img}${m[n].img.includes('?') ? '&' : '?'}w=1200&auto=format&q=80` : `/m/${n}.jpg`;
+---
+<Site title={p.title} description={`${p.lede} ${p.desc || ''}`.trim()} image={img} path={`/work/${p.slug}`} />

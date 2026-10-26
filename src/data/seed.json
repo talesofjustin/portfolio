@@ -1,0 +1,459 @@
+{
+ "projects": [
+  {
+   "id": "btp",
+   "title": "Besides The Point",
+   "client": "Absent Chronicles",
+   "type": "Music video",
+   "role": "Direction, camera & edit",
+   "lede": "A music video for Absent Chronicles.",
+   "video": "reel",
+   "video2": "underwater",
+   "stills": [
+    "absent-face",
+    "absent-sandmine",
+    "absent-clouds",
+    "absent-shore",
+    "absent-pit",
+    "absent-conveyor"
+   ],
+   "med": [
+    "Film"
+   ],
+   "work": "Commercial",
+   "kind": "Music video",
+   "sel": true,
+   "slug": "besides-the-point",
+   "desc": "Shot in a sand quarry and under water.",
+   "clips": [
+    "btp-clip1",
+    "btp-clip2",
+    "btp-clip3",
+    "btp-clip4"
+   ],
+   "landing": [
+    "land-btp",
+    "land-btp2"
+   ]
+  },
+  {
+   "id": "rgn",
+   "title": "Roots Grow North",
+   "client": "Roots Grow North",
+   "type": "Brand film",
+   "role": "Direction, camera & edit",
+   "lede": "A brand film for Roots Grow North.",
+   "bg": "roots-camp",
+   "stills": [
+    "roots-forest",
+    "roots-camp",
+    "roots-fog",
+    "roots-portrait"
+   ],
+   "med": [
+    "Film"
+   ],
+   "work": "Commercial",
+   "kind": "Brand & social",
+   "sel": true,
+   "slug": "roots-grow-north",
+   "desc": "Back to basics, six days without signal."
+  },
+  {
+   "id": "ram",
+   "title": "RAM Mounts",
+   "client": "RAM Mounts",
+   "type": "Social content",
+   "role": "Film & edit",
+   "lede": "Social films for RAM Mounts, shot on the bike.",
+   "video": "ram",
+   "stills": [
+    "ram-rider",
+    "ram-valley",
+    "ram-sheep",
+    "ram-helmet"
+   ],
+   "med": [
+    "Film"
+   ],
+   "work": "Commercial",
+   "kind": "Brand & social",
+   "sel": true,
+   "slug": "ram-mounts",
+   "desc": "Shot on the bike, in the mountains.",
+   "clips": [
+    "ram-clip1",
+    "ram-clip2"
+   ]
+  },
+  {
+   "id": "hav",
+   "title": "The Balkans",
+   "client": "HAVEN",
+   "type": "Photography",
+   "role": "Photography",
+   "place": "The Balkans",
+   "lede": "A photo series for HAVEN, made in the Balkans.",
+   "bg": "haven-tent",
+   "stills": [
+    "haven-valley",
+    "haven-tent",
+    "haven-ridge",
+    "haven-two"
+   ],
+   "med": [
+    "Photo"
+   ],
+   "work": "Commercial",
+   "kind": "Brand & social",
+   "sel": true,
+   "slug": "the-balkans",
+   "desc": "Tents, bikes and ridges at golden hour."
+  },
+  {
+   "id": "end",
+   "title": "Sweden",
+   "client": "Enduristan",
+   "type": "Photo & video",
+   "role": "Photography & film",
+   "place": "Sweden",
+   "lede": "Photos and social films for Enduristan, made in Sweden.",
+   "bg": "enduristan-camp",
+   "stills": [
+    "enduristan-camp",
+    "enduristan-bag",
+    "enduristan-ride",
+    "enduristan-camp"
+   ],
+   "med": [
+    "Film",
+    "Photo"
+   ],
+   "work": "Commercial",
+   "kind": "Brand & social",
+   "sel": true,
+   "slug": "sweden",
+   "desc": "Everything strapped to the back of a motorbike.",
+   "clips": [
+    "end-clip1",
+    "end-clip2",
+    "end-clip3",
+    "end-clip4"
+   ],
+   "landing": [
+    "land-end"
+   ]
+  },
+  {
+   "id": "ice",
+   "title": "Iceland",
+   "client": "Personal film",
+   "type": "Travel film",
+   "role": "Everything",
+   "place": "Iceland",
+   "lede": "A personal travel film from Iceland.",
+   "video": "iceland",
+   "stills": [
+    "ice-hiker",
+    "ice-canyon",
+    "ice-ridge",
+    "ice-van",
+    "ice-cliff"
+   ],
+   "med": [
+    "Film"
+   ],
+   "work": "Personal",
+   "kind": "Travel",
+   "sel": true,
+   "slug": "iceland",
+   "desc": "One van, one hiker, a lot of wind."
+  },
+  {
+   "id": "tgm",
+   "title": "Summer Games",
+   "client": "The Gathering of Men",
+   "type": "Event film",
+   "role": "Film & photography",
+   "lede": "An event film and photo coverage of the Summer Games.",
+   "bg": "tgom-wrestle",
+   "stills": [
+    "tgom-wrestle",
+    "tgom-circle"
+   ],
+   "med": [
+    "Film",
+    "Photo"
+   ],
+   "work": "Commercial",
+   "kind": "Event",
+   "slug": "summer-games",
+   "desc": "Wrestling in the grass, talking in a circle.",
+   "clips": [
+    "tgm-clip1",
+    "tgm-clip2"
+   ],
+   "landing": [
+    "land-tgm"
+   ]
+  },
+  {
+   "id": "jt",
+   "title": "Julianatoren",
+   "client": "Julianatoren",
+   "type": "Photography",
+   "role": "Photography",
+   "lede": "Photography for the Julianatoren park.",
+   "bg": "jt-booth",
+   "stills": [
+    "jt-booth",
+    "jt-candy",
+    "jt-ride"
+   ],
+   "med": [
+    "Photo"
+   ],
+   "work": "Commercial",
+   "kind": "Event",
+   "slug": "julianatoren",
+   "desc": "Candy floss and a hundred kids."
+  },
+  {
+   "id": "sg",
+   "title": "Cambuur Stadium",
+   "client": "Scheffer Groep",
+   "type": "Photography",
+   "role": "Photography",
+   "place": "Leeuwarden",
+   "lede": "Photography of the building work at Cambuur stadium.",
+   "bg": "sg-pitch",
+   "stills": [
+    "sg-pitch",
+    "sg-crane",
+    "sg-sparks"
+   ],
+   "med": [
+    "Photo"
+   ],
+   "work": "Commercial",
+   "kind": "Corporate",
+   "slug": "cambuur-stadium",
+   "desc": "Sparks, cranes and a pitch without a crowd.",
+   "clips": [
+    "sg-clip1",
+    "sg-clip2"
+   ]
+  },
+  {
+   "id": "ltm",
+   "title": "Leatherman",
+   "client": "Leatherman",
+   "type": "Social content",
+   "role": "Photography & film",
+   "lede": "Social content for Leatherman, made outdoors.",
+   "bg": "leatherman-camp",
+   "stills": [
+    "leatherman-camp",
+    "leatherman-tool"
+   ],
+   "med": [
+    "Film",
+    "Photo"
+   ],
+   "work": "Commercial",
+   "kind": "Brand & social",
+   "slug": "leatherman",
+   "desc": "One tool, a dozen small jobs."
+  }
+ ],
+ "reviews": [
+  {
+   "text": "Justin worked on two of our productions and we couldn’t be happier with the results, but also with him as our temporary team member. With him, you book a videographer that will be your second brain throughout the project and not just only when asked. We can highly recommend you and your work, Justin, and are already looking forward to our next project.",
+   "name": "Inken Weber",
+   "co": "Skargards",
+   "ctx": "Skargards, on Google",
+   "bg": "skargards-tub",
+   "source": "Google",
+   "url": ""
+  },
+  {
+   "text": "Justin has captured my back-to-basics canoe trekking in Sweden. And wow, the results are FAR beyond expectations. The movie, reels and pictures made, show exactly the atmosphere during the canoe trip. He really captured the essence of it. What I really liked about working with Justin is that he has the perfect mix of social and creative skills. He listens well, asks good questions, comes up with ideas and takes initiative and responsibility. Besides that, he’s just a really awesome person to have around. Professional, but definitely also kind, curious, fun and relaxed. We’re super grateful for his work for Roots Grow North, and love to keep working with Justin for our future events.",
+   "name": "Stijn Klaren",
+   "co": "Roots Grow North",
+   "ctx": "Roots Grow North, on Google",
+   "bg": "roots-camp",
+   "source": "Google",
+   "url": ""
+  },
+  {
+   "text": "What a great collaboration with our photographer Justin during the shoot at Julianatoren Children’s Amusement Park! From the very first moment, Justin was proactive, super flexible, and knew exactly how to capture the right moments. With so much energy and enthusiasm amidst all the children and attractions, it remains impressive how he stays calm and shoots the perfect photo time after time. The images radiate fun, spontaneity, and experience, exactly what Julianatoren is all about. A true professional whom we will continue to hire with confidence!",
+   "name": "Jul de Muis",
+   "co": "Julianatoren",
+   "ctx": "Julianatoren, on Google",
+   "bg": "jt-candy",
+   "source": "Google",
+   "url": ""
+  },
+  {
+   "text": "Justin helped us at the Drive For Life Foundation with beautiful footage during one of our drives. His professionalism shines through in the images; it is a pleasure working with him. We therefore hope that he will help us often in the future.",
+   "name": "Marten",
+   "co": "Drive For Life",
+   "ctx": "Drive For Life Foundation, on Google, translated from Dutch",
+   "bg": "bts-2",
+   "source": "Google",
+   "url": ""
+  },
+  {
+   "text": "Over the past few years Justin has handled several video and photography jobs for me. From the concept phase to the shoot, everything was taken care of down to the last detail. Clear communication, updates along the way and very pleasant to work with on the shoot days themselves. Whether it’s a corporate film or a project with a more creative angle, you’re in good hands with Justin!",
+   "name": "Danny",
+   "co": "Absent Chronicles",
+   "ctx": "Absent Chronicles, on Trustpilot, translated from Dutch",
+   "bg": "absent-face",
+   "source": "Trustpilot",
+   "url": ""
+  },
+  {
+   "text": "Justin thinks along with you from concept all the way to the shoot and the edit. Great to work with. Someone who always goes that extra step! Super, Justin.",
+   "name": "Larissa Rosanna Pen",
+   "co": "Client",
+   "ctx": "On Trustpilot, translated from Dutch",
+   "bg": "finish-grade",
+   "source": "Trustpilot",
+   "url": ""
+  }
+ ],
+ "clients": [
+  {
+   "name": "Absent Chronicles",
+   "project": "btp"
+  },
+  {
+   "name": "Roots Grow North",
+   "project": "rgn"
+  },
+  {
+   "name": "RAM Mounts",
+   "project": "ram"
+  },
+  {
+   "name": "HAVEN",
+   "project": "hav"
+  },
+  {
+   "name": "Enduristan",
+   "project": "end"
+  },
+  {
+   "name": "Leatherman",
+   "project": "ltm"
+  },
+  {
+   "name": "The Gathering of Men",
+   "project": "tgm"
+  },
+  {
+   "name": "Julianatoren",
+   "project": "jt"
+  },
+  {
+   "name": "Scheffer Groep",
+   "project": "sg"
+  },
+  {
+   "name": "Stanley",
+   "project": null
+  },
+  {
+   "name": "Zhiyun",
+   "project": null
+  },
+  {
+   "name": "Vitamin Well",
+   "project": null
+  },
+  {
+   "name": "Neat Video",
+   "project": null
+  }
+ ],
+ "bts": [
+  {
+   "img": "pol-1",
+   "caption": "Balloon up"
+  },
+  {
+   "img": "pol-8",
+   "caption": "Iceland, the van"
+  },
+  {
+   "img": "pol-2",
+   "caption": "Hero shot"
+  },
+  {
+   "img": "pol-9",
+   "caption": "Camp, Sweden"
+  },
+  {
+   "img": "pol-4",
+   "caption": "Focus pull"
+  },
+  {
+   "img": "pol-10",
+   "caption": "The Balkans"
+  },
+  {
+   "img": "pol-3",
+   "caption": "Framing it up"
+  },
+  {
+   "img": "pol-11",
+   "caption": "Roots Grow North"
+  },
+  {
+   "img": "pol-5",
+   "caption": "Soft light"
+  },
+  {
+   "img": "pol-12",
+   "caption": "Leatherman camp"
+  },
+  {
+   "img": "pol-6",
+   "caption": "The set"
+  },
+  {
+   "img": "pol-7",
+   "caption": "Last looks"
+  }
+ ],
+ "landing": [
+  "land-btp",
+  "land-end",
+  "land-tgm",
+  "land-btp2"
+ ],
+ "settings": {
+  "aboutImage": "haven-valley",
+  "contactVideo": "sea",
+  "email": "hello@talesofjustin.com",
+  "linkedin": "https://nl.linkedin.com/in/justinnederkoorn",
+  "instagram": "https://www.instagram.com/talesofjustin",
+  "youtube": "https://www.youtube.com/channel/UC0PvefOBdtlUEaqeqwLvdlQ"
+ },
+ "btsRail": [
+  "bts-1",
+  "pol-3",
+  "bts-2",
+  "pol-6",
+  "bts-3",
+  "pol-7",
+  "bts-4",
+  "pol-1",
+  "bts-5",
+  "pol-4",
+  "bts-6",
+  "pol-2",
+  "bts-7",
+  "pol-5"
+ ]
+}

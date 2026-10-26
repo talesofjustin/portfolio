@@ -1,0 +1,189 @@
+
+
+<div id="scrim"></div><div id="scrimB"></div>
+<header class="chrome top">
+  <a class="brand" href="#film" data-to="0">Tales of <em>Justin</em></a>
+  <nav class="menu" aria-label="Main">
+    <a href="#film" data-to="work">Work</a>
+    <button type="button" data-archive>Archive</button>
+    <a href="#film" data-to="about">About</a>
+    <a href="#film" data-to="contact">Contact</a>
+  </nav>
+</header>
+<div class="chrome bottom">
+  <div class="tc"><span class="lbl" id="scLbl">SC 01 / 04 Reel</span><span id="tc">TC 00:00:00:00</span></div>
+  <div class="hint" id="hint"><span>Scroll</span><span class="bar"></span></div>
+</div>
+
+<div id="film">
+  <!-- HOME: the opening and the selected work share one shot; only the text changes -->
+  <section class="scene" id="home" aria-label="Home and selected work">
+    <div class="bgwrap" id="homeBg">
+      <div class="layer show" id="lyrA"><video class="fill" id="heroVid" src="{{HERO_VID}}" poster="{{HERO_PST}}" crossorigin="anonymous" muted playsinline autoplay preload="auto"></video></div>
+      <div class="layer" id="lyrB"></div>
+      <div class="shade"></div>
+    </div>
+    <div class="open-head"><h1 id="openHead"><span class="oln"><span class="oin"><span class="serif">Stories</span> from the road,</span><i class="obar"></i></span><span class="oln"><span class="oin">shot like cinema</span><i class="obar"></i></span></h1></div>
+
+    <div class="sel" id="sel">
+      <span class="wipe" id="chipW"><span class="chip">selected work</span></span>
+      <ol id="rows"></ol>
+      <span class="wipe" id="archW"><button type="button" class="toarchive ul" data-archive data-cursor="Archive">View all work in the archive</button></span>
+    </div>
+    <div class="meta" aria-live="polite"><h2 class="ln"><span id="wTitle"></span></h2><p class="ln"><span id="wClient"></span></p><p class="ln wrole"><span id="wRole"></span></p></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="scene" id="about" aria-label="About">
+    <div class="bgwrap" id="aboutBg">
+      <div class="ab-bg">
+        <div class="layer show" id="abA"><img class="fill" src="{{ABOUT_IMG}}" crossorigin="anonymous" alt=""></div>
+        <div class="layer" id="abB"></div>
+      </div>
+      <canvas class="dl" id="abDots" aria-hidden="true"></canvas>
+      <div class="ab-shade"></div>
+    </div>
+    <div class="ab-out" id="abSink"></div>
+    <div class="ab-head"><h2 id="abHead"><span class="abl">I film people</span> <span class="abl">who go outside,</span> <span class="abl serif">and the brands</span> <span class="abl serif">that take them there</span></h2></div>
+    <div class="clients" id="clients">
+      <div class="ccol">
+        <h3>Clients</h3>
+        <ul class="clist" id="clist"></ul>
+      </div>
+
+    </div>
+  </section>
+  <!-- the way into "off the record": a window onto it opens in the middle of about and comes at you -->
+
+</div>
+<div class="xfer" id="xfer" aria-hidden="true"></div>
+
+<!-- ARCHIVE PAGE -->
+
+<!-- OFF THE RECORD (A): behind-the-scenes polaroids drift past a sticky title -->
+<section class="bts" id="bts" aria-label="Behind the scenes">
+  <div class="bts-bg" aria-hidden="true"><div class="grain"></div></div>
+  <div class="bts-head"><div>
+    <span class="otr-rec" id="otrRec"><b></b><span class="otr-lab"><span>Rolling</span><span>Cut</span></span></span>
+    <h2 id="btsHead"><span class="otr-sw"><span class="otr-on">On</span><span class="otr-off">Off</span></span><span class="otr-the"><span>&nbsp;the</span></span> <span class="serif">record</span></h2>
+    <p class="otr-sub">On set, on the road, between the takes.</p></div></div>
+  <ul class="pols" id="pols"></ul>
+</section>
+
+<!-- KIND WORDS: the reviews play as subtitles over that client's pictures -->
+<section class="words-wrap" id="words" aria-label="Kind words">
+ <div class="words">
+  <div class="w-bg" id="wBg" aria-hidden="true"><div class="w-shade"></div></div>
+  <h2 class="w-title" id="wHead">Said on set,<br><span class="serif">and long after</span></h2>
+  <div class="w-sub" id="wSub">
+    <p class="w-line" id="wLine" aria-live="polite"></p>
+    <div class="w-nav"><button type="button" class="w-arr" id="wPrev" aria-label="Previous line"><svg viewBox="0 0 16 10"><path d="M15 5H2M6 1L2 5l4 4"/></svg></button><div class="w-ticks" id="wTicks" aria-hidden="true"></div><button type="button" class="w-arr" id="wNext" aria-label="Next line"><svg viewBox="0 0 16 10"><path d="M1 5h13M10 1l4 4-4 4"/></svg></button></div>
+    <p class="w-who" id="wWho"></p>
+    <button type="button" class="w-more" id="wMore" aria-expanded="false" aria-controls="wFull"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5h10M2 9h10M2 1h10M2 13h6"/></svg><span>Read the whole review</span></button>
+  </div>
+  <div class="w-full" id="wFull" hidden><div class="w-full-in"><p class="w-full-txt" id="wFullTxt"></p><p class="w-who" id="wFullWho"></p><p class="w-hint">Reading along · click any sentence to jump there</p><button type="button" class="w-more" id="wFullX"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 7h10"/></svg><span>Back to the subtitles</span></button></div></div>
+  <div class="w-reel" id="wReel" role="tablist" aria-label="Reviews"></div>
+  <p class="w-srcs"><a class="ul" href="https://www.trustpilot.com/review/talesofjustin.com" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span> 5.0 (3) on Trustpilot ↗</a><a class="ul" href="https://share.google/iajG03UQTilDx6ImS" target="_blank" rel="noopener" id="gRev"><span class="stars" aria-hidden="true">★★★★★</span> 5.0 (6) on Google ↗</a></p>
+ </div>
+</section>
+
+  <!-- CONTACT -->
+  <section class="contact-sec" id="contact" aria-label="Contact">
+    <div class="c-media"><div class="bgwrap" id="contactBg"><video class="fill" id="seaVid" src="{{SEA_VID}}" poster="{{SEA_PST}}" crossorigin="anonymous" muted loop playsinline preload="metadata"></video></div></div>
+    <div class="say" id="say">
+      <h2 id="sayHead">Got a story?<br><span class="serif">Let's shoot it</span></h2>
+      <form id="form" class="letter" novalidate>
+        <p class="ltr"><span id="greet">Hello</span>, I'm <span class="fld"><input id="f-name" name="name" autocomplete="name" placeholder="your name" aria-label="Your name" required></span> from <span class="fld"><input id="f-org" name="company" autocomplete="organization" placeholder="company (optional)" aria-label="Company, optional"></span>. We're looking for <span class="fld dd" id="dd-need" data-name="need" data-ph="a type of project" data-opts="a brand film|social content|a photo series|event coverage|something else"></span> with a budget of around <span class="fld dd" id="dd-budget" data-name="budget" data-ph="choose a range" data-opts="under €2,500|€2,500 – 5,000|€5,000 – 10,000|€10,000+|no idea yet"></span>. You can reach me at <span class="fld wide"><input id="f-mail" name="email" type="email" autocomplete="email" placeholder="you@company.com" aria-label="Your email" required></span>.</p>
+        <label class="more" for="f-msg"><span>Anything else worth knowing? <i>optional</i></span><textarea id="f-msg" name="message" rows="2" placeholder="Where, when, what it's for"></textarea></label>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="formnote" id="formErr" hidden></p>
+        <button class="cta ul" type="submit">Send <span class="arr" aria-hidden="true">→</span></button>
+      </form>
+      <div class="sent" id="sent" hidden aria-live="polite">
+        <h3>Thanks, that's in.</h3>
+        <p>Your message is on its way to Justin's inbox. He'll get back to you soon.</p>
+      </div>
+      <div class="say-end">
+      <ul class="elsewhere" aria-label="Elsewhere">
+        <li><a href="https://www.instagram.com/talesofjustin" target="_blank" rel="noopener"><span>Instagram</span><span class="h">@talesofjustin</span><span class="ar">↗</span></a></li>
+        <li><a href="https://www.youtube.com/channel/UC0PvefOBdtlUEaqeqwLvdlQ" target="_blank" rel="noopener"><span>YouTube</span><span class="h">Tales of Justin</span><span class="ar">↗</span></a></li>
+        <li><a href="https://nl.linkedin.com/in/justinnederkoorn" target="_blank" rel="noopener"><span>LinkedIn</span><span class="h">Justin Nederkoorn</span><span class="ar">↗</span></a></li>
+      </ul>
+      <div class="foot"><span class="mail">hello@talesofjustin.com</span><span>Based in the Netherlands</span></div>
+      </div>
+    </div>
+  </section>
+
+<section class="page" id="archive" aria-label="Archive" aria-hidden="true" data-lenis-prevent>
+  <div class="ahead">
+    <div class="t"><button type="button" class="back" id="archBack"><svg class="arw" viewBox="0 0 16 10" aria-hidden="true"><path d="M15 5H2M6 1L2 5l4 4"/></svg><span>Back</span></button><h2><span class="serif">The</span> archive<sup id="fcount"></sup></h2></div>
+    <div class="fcol">
+      <div class="fseg" id="fmed" role="radiogroup" aria-label="Film or photo"></div>
+      <div class="fkind" id="fkind" role="radiogroup" aria-label="Kind of work"></div>
+    </div>
+  </div>
+  <div class="grid" id="grid" aria-label="Projects"></div>
+</section>
+
+<!-- PROJECT PAGE -->
+<article class="page" id="project" aria-label="Project" aria-hidden="true" data-lenis-prevent>
+ <div class="p-inner" id="pInner">
+  <div class="p-bar"><button type="button" class="back" id="projBack"><svg class="arw" viewBox="0 0 16 10" aria-hidden="true"><path d="M15 5H2M6 1L2 5l4 4"/></svg><span id="projBackT">Back</span></button><span class="p-brand">Tales of <em>Justin</em></span><button type="button" class="p-count" id="pCountBtn" aria-label="Back to the archive"><svg class="gi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span id="pCount"></span></button></div>
+  <!-- the window a project opens on: the film itself, full screen, the same frame the selected work list shows -->
+  <div class="pj-hero">
+    <div class="p-fm" id="pFrame"></div><div class="pj-shade"></div>
+    <button type="button" class="p-play" id="pPlay"><span class="pp-ic" aria-hidden="true"><svg viewBox="0 0 12 14"><path d="M1 1l10 6-10 6z"/></svg></span><span class="pp-t">Play the film</span></button>
+    <div class="pj-hl"><h1 class="p-title" id="pTitle"></h1><p class="pj-desc" id="pLog"></p></div>
+    <p class="pj-client" id="pClient"></p>
+    <span class="pj-dive" aria-hidden="true">Scroll to dive in</span>
+  </div>
+  <section class="pj pj-watch" id="pFilms" aria-label="Deliverables">
+    <div class="pj-l"><h2 class="pj-lab">Deliverables</h2><p class="pj-note" id="pSlug"></p></div>
+    <div class="pj-films" id="pfRow"></div>
+  </section>
+  <section class="pj pj-ask" id="pAsk">
+    <h2 class="pj-h"><span class="serif">The</span> ask</h2>
+    <div class="pj-g">
+      <div class="c3"><h3 class="pj-lab">What I did</h3><ul class="pj-list" id="paDid"></ul></div>
+      <div class="c3 pj-txt"><p id="paTxt"></p><p id="paTxt2">It couldn't be just another video. This placeholder paragraph is where the challenge goes: what made this one hard, and what it had to do for the people who paid for it.</p></div>
+      <figure class="c5 pj-img sq" id="paImg"></figure>
+      <dl id="pMeta" hidden></dl>
+    </div>
+  </section>
+  <section class="pj pj-app" id="pApp">
+    <h2 class="pj-h" id="papH">Approach</h2>
+    <div class="pj-g">
+      <div class="c4 pj-txt" id="papTxt"><p id="papLead"></p><p>The idea behind it in a few sentences: what it had to make people feel, and the one visual rule everything followed.</p><p>At the end of the day it wasn't about flashy edits. It was about the people in front of the camera, and making the viewer feel like they were there.</p></div>
+      <figure class="c7 o6 pj-img" id="papImg"></figure>
+    </div>
+    <div class="pj-stills"><div class="pj-sh"><h3 class="pj-lab2">Stills</h3><span class="pj-count" id="psCount"></span></div><div class="pst-grid" id="pstGrid"></div></div>
+  </section>
+  <section class="pj pj-how" id="pHow">
+    <h2 class="pj-h"><span class="serif">How it</span> happened</h2>
+    <div id="phGrid"></div>
+  </section>
+  <section class="pj-quote" id="pQuote" hidden><div class="pj-g"><figure class="c2 pj-img qimg" id="pqImg"></figure><blockquote class="c9 o4" id="pqTxt"></blockquote><p class="c9 o4 pq-who" id="pqWho"></p></div></section>
+  <section class="pj pj-bts p-bts" id="pBts" aria-label="Behind the scenes">
+    <div class="pb-head"><h2 class="pj-h"><span class="serif">Behind the</span> scenes</h2></div>
+    <div class="pb-rail" id="pbRail"><div class="pb-track" id="pbTrack"></div></div>
+    <p class="pb-note">Drag to look around · placeholder frames for now, the real set photos of this shoot go here</p>
+  </section>
+  <section class="pj pj-credits" id="pCred"><div class="pj-g"><h3 class="c4 pj-lab2">Credits</h3><dl class="c8 o5 pc-list" id="pcList"></dl></div></section>
+  <section class="p-more" aria-label="More work">
+    <div class="pm-head"><h2><span class="serif">More</span> work</h2><button type="button" class="ul pm-all" id="pmAll"><svg class="gi" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>The full archive</button></div>
+    <div class="pm-grid" id="pmGrid"></div>
+  </section>
+ </div>
+</article>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Frame" hidden>
+  <div class="lb-stage" id="lbStage"></div>
+  <button type="button" class="lb-x" id="lbX">× Close</button>
+  <button type="button" class="lb-prev" id="lbPrev" aria-label="Previous frame">←</button>
+  <button type="button" class="lb-next" id="lbNext" aria-label="Next frame">→</button>
+  <span class="lb-n" id="lbN"></span><span class="lb-hint">Click anywhere to close</span>
+</div>
+
+<div class="vp" id="vp" role="dialog" aria-modal="true" aria-label="Film" hidden><video id="vpVid" controls playsinline></video><button type="button" class="vp-x" id="vpX">Close</button></div>
+<img id="zoom" alt="">
+
+

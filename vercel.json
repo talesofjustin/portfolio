@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    { "source": "/products/:path*", "destination": "/", "permanent": true },
+    { "source": "/collections/:path*", "destination": "/", "permanent": true },
+    { "source": "/pages/contact", "destination": "/#contact", "permanent": true },
+    { "source": "/pages/:path*", "destination": "/", "permanent": true },
+    { "source": "/blogs/:path*", "destination": "/", "permanent": true },
+    { "source": "/cart", "destination": "/", "permanent": true },
+    { "source": "/account/:path*", "destination": "/", "permanent": true }
+  ],
+  "headers": [
+    { "source": "/vendor/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/m/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "talesofjustin",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/react": "^7.1.0",
+    "@astrojs/vercel": "^11.0.16",
+    "@sanity/astro": "^3.6.0",
+    "@sanity/client": "^8.11.0",
+    "astro": "^7.4.1",
+    "gsap": "^3.12.5",
+    "hls.js": "^1.7.3",
+    "lenis": "^1.1.13",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-is": "^19.3.1",
+    "resend": "^6.34.1",
+    "sanity": "^6.20.0",
+    "styled-components": "^6.6.0"
+  }
+}
