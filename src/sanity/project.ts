@@ -61,7 +61,7 @@ export const project = defineType({
         defineField({ name: 'video', title: 'Of een clip', type: 'bunnyVideo' }),
       ], preview: { select: { title: 'title', media: 'image' } } })] }),
     defineField({ name: 'quote', title: 'Quote', type: 'reference', to: [{ type: 'review' }], group: 'story',
-      description: 'Leeg = automatisch een review van deze klant, als die er is.' }),
+      description: 'Leeg = de review die aan dit project gekoppeld is, als die er is.' }),
 
     defineField({ name: 'credits', title: 'Credits', type: 'array', group: 'extra',
       of: [defineArrayMember({ type: 'object', name: 'credit', fields: [

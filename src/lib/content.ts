@@ -22,11 +22,11 @@ export function getContent(): Promise<Content> {
 
 const Q = `{
   "settings": *[_id == "siteSettings"][0]{
-    ..., "selected": selected[]->_id, "reviews": reviews[]->{...},
+    ..., "selected": selected[]->_id, "reviews": reviews[]->{..., "project": project->_id, "projectImg": coalesce(project->stills[0], project->heroImage)},
     "clients": clients[]{name, "project": project->_id},
     "bts": bts[]{caption, image}, aboutImage, contactVideo
   },
-  "projects": *[_type == "project" && !(_id in path("drafts.**"))] | order(date desc){..., "quote": quote->_id}
+  "projects": *[_type == "project" && !(_id in path("drafts.**"))] | order(date desc){..., "quote": quote->_id, "linked": *[_type == "review" && project._ref == ^._id][0]._id}
 }`;
 
 async function groq(query: string) {
@@ -82,7 +82,8 @@ async function fromSanity(): Promise<Content> {
     const landing = (d.landingClips || []).map(vid).filter(Boolean);
     const deliverables = (d.deliverables || []).map((x: any) => [vid(x.video), x.label || 'Cut-down']).filter((x: any) => x[0]);
     const med = d.mediaType === 'photo' ? ['Photo'] : d.mediaType === 'both' ? ['Film', 'Photo'] : ['Film'];
-    const qi = d.quote ? reviews.findIndex((r: any) => r._id === d.quote) : -1;
+    const qid = d.quote || d.linked;
+    const qi = qid ? reviews.findIndex((r: any) => r._id === qid) : -1;
     return {
       id: d._id,
       slug: d.slug?.current,
@@ -125,7 +126,7 @@ async function fromSanity(): Promise<Content> {
     reviews: reviews.map((r: any) => ({
       text: r.text, name: r.name, co: r.company || '',
       ctx: [r.company, r.source ? 'on ' + r.source : '', r.note].filter(Boolean).join(', '),
-      bg: img(r.image) || projects[0]?.stills[0], source: r.source || '', url: r.url || '',
+      bg: img(r.image) || img(r.projectImg) || projects[0]?.stills[0], source: r.source || '', url: r.url || '',
     })),
     clients: (S.clients || []).map((c: any) => ({ name: c.name, project: c.project || null })),
     bts: (S.bts || []).map((b: any) => ({ img: img(b.image), caption: b.caption || '' })).filter((b: any) => b.img),
