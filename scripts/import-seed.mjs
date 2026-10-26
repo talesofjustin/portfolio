@@ -104,7 +104,6 @@ await sanity.createOrReplace({
   aboutImage: await image(seed.settings.aboutImage),
   clients: seed.clients.map((c) => ({ _key: key(), _type: 'clientItem', name: c.name, ...(c.project ? { project: { _type: 'reference', _ref: projIds[c.project] } } : {}) })),
   bts: await arr(seed.bts, async (b) => ({ _type: 'polaroid', caption: b.caption, image: await image(b.img) })),
-  btsRail: await arr(seed.btsRail, image),
   reviews: reviewIds.map((id) => ({ _key: key(), _type: 'reference', _ref: id })),
   contactVideo: await video(seed.settings.contactVideo),
   email: seed.settings.email, instagram: seed.settings.instagram, youtube: seed.settings.youtube, linkedin: seed.settings.linkedin,

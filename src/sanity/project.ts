@@ -45,7 +45,7 @@ export const project = defineType({
     defineField({ name: 'stills', title: 'Stills', type: 'array', group: 'media', of: [defineArrayMember({ type: 'image', options: { hotspot: true } })],
       options: { layout: 'grid' }, description: 'Sleep de originele bestanden hierin, geen exports nodig. De eerste is ook de thumbnail in het archief.' }),
     defineField({ name: 'btsImages', title: 'Behind the scenes', type: 'array', group: 'media', of: [defineArrayMember({ type: 'image', options: { hotspot: true } })],
-      options: { layout: 'grid' }, description: 'De sleepbare strook op de projectpagina. Leeg = de algemene BTS-strook.' }),
+      options: { layout: 'grid' }, description: 'De sleepbare strook op de projectpagina. Leeg = geen BTS-strook op deze pagina.' }),
 
     defineField({ name: 'brief', title: 'The ask', type: 'text', rows: 3, group: 'story' }),
     defineField({ name: 'brief2', title: 'The ask (tweede alinea)', type: 'text', rows: 3, group: 'story' }),

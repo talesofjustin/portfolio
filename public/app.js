@@ -819,7 +819,7 @@
     // the client's own words, when there are any
     var rv=p.quote!=null?REV[p.quote]:reviewFor(p);if(off('quote'))rv=null;q('pQuote').hidden=!rv;if(rv){q('pqTxt').textContent=rv.sents.slice(0,3).join(' ');q('pqWho').innerHTML=rv.name+'<i>'+rv.ctx.split(',')[0]+'</i>';q('pqImg').innerHTML=pic(rv.bg)}
     // behind the scenes: a long, big, moving rail
-    var bt=q('pbTrack');bt.innerHTML='';var BIM=p.btsImages&&p.btsImages.length?p.btsImages:(D.btsRail||[]);q('pBts').hidden=!BIM.length||off('bts'),SZ=['t','w','m','w','t','m','w','t','m','w','t','w','m','t'];
+    var bt=q('pbTrack');bt.innerHTML='';var BIM=p.btsImages||[];q('pBts').hidden=!BIM.length||off('bts');var SZ=['t','w','m','w','t','m','w','t','m','w','t','w','m','t'];
     var seq=BIM.slice(i%BIM.length).concat(BIM.slice(0,i%BIM.length));
     seq.concat(seq).forEach(function(n,k){var d=document.createElement('div');d.className='pb-f '+SZ[k%SZ.length];d.innerHTML='<img crossorigin="anonymous" src="'+IMG(n)+'" alt="" loading="lazy">';bt.appendChild(d)});
     // credits

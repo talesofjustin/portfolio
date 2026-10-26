@@ -24,7 +24,7 @@ const Q = `{
   "settings": *[_id == "siteSettings"][0]{
     ..., "selected": selected[]->_id, "reviews": reviews[]->{...},
     "clients": clients[]{name, "project": project->_id},
-    "bts": bts[]{caption, image}, btsRail, aboutImage, contactVideo
+    "bts": bts[]{caption, image}, aboutImage, contactVideo
   },
   "projects": *[_type == "project" && !(_id in path("drafts.**"))] | order(date desc){..., "quote": quote->_id}
 }`;
@@ -129,7 +129,6 @@ async function fromSanity(): Promise<Content> {
     })),
     clients: (S.clients || []).map((c: any) => ({ name: c.name, project: c.project || null })),
     bts: (S.bts || []).map((b: any) => ({ img: img(b.image), caption: b.caption || '' })).filter((b: any) => b.img),
-    btsRail: imgs(S.btsRail),
     landing: projects.filter((p: any) => p.sel).flatMap((p: any) => p.landing),
     settings: {
       aboutImage: img(S.aboutImage) || projects[0]?.stills[0],

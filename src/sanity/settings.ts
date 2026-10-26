@@ -24,8 +24,6 @@ export const siteSettings = defineType({
         defineField({ name: 'image', title: 'Foto', type: 'image', options: { hotspot: true } }),
         defineField({ name: 'caption', title: 'Onderschrift', type: 'string', description: 'Handgeschreven onder de foto, kort.' }),
       ], preview: { select: { title: 'caption', media: 'image' } } })], description: 'Maximaal 12, in volgorde van boven naar beneden.' }),
-    defineField({ name: 'btsRail', title: 'Algemene BTS-strook', type: 'array', group: 'bts', of: [defineArrayMember({ type: 'image', options: { hotspot: true } })],
-      options: { layout: 'grid' }, description: 'Voor projectpagina\'s zonder eigen BTS-foto\'s.' }),
     defineField({ name: 'reviews', title: 'Reviews op de homepage', type: 'array', group: 'reviews', of: [defineArrayMember({ type: 'reference', to: [{ type: 'review' }] })] }),
     defineField({ name: 'contactVideo', title: 'Video achter Contact', type: 'bunnyVideo', group: 'contact' }),
     defineField({ name: 'email', title: 'E-mail', type: 'string', group: 'contact', initialValue: 'hello@talesofjustin.com' }),

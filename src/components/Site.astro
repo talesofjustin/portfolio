@@ -29,7 +29,7 @@ const desc = description || 'Justin Nederkoorn films people who go outside, and 
 const ogImage = image || IMG(c.projects[0]?.stills[0], 1200);
 const canonical = new URL(path, Astro.site).href;
 // keep the payload lean: the script only needs these fields
-const data = JSON.stringify({ projects: c.projects, reviews: c.reviews, clients: c.clients, bts: c.bts, btsRail: c.btsRail, landing: c.landing, settings: c.settings, media: c.media, local: c.local }).replace(/</g, '\\u003c');
+const data = JSON.stringify({ projects: c.projects, reviews: c.reviews, clients: c.clients, bts: c.bts, landing: c.landing, settings: c.settings, media: c.media, local: c.local }).replace(/</g, '\\u003c');
 ---
 <!doctype html>
 <html lang="en">
