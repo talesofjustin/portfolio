@@ -1,3 +1,4 @@
+[hidden]{display:none !important}
 
 /* Layout concept: one pinned stage, one scroll-scrubbed timeline. Home turns into selected work by swapping text only; About slides up over it; Contact pushes About out to the left. */
 :root{
@@ -642,6 +643,17 @@ form{display:flex;flex-direction:column;gap:9px}
   #project .pst-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   #project .pc-list{grid-template-columns:minmax(0,1fr)}
 }
+/* standing tablets: project sections in one comfortable column */
+@media (min-width:761px) and (max-width:1100px) and (orientation:portrait){
+  .pj-g,.pj-how-i{grid-template-columns:minmax(0,1fr)}
+  .pj-g > *,.pj-how-i > *{grid-column:1 / -1 !important}
+  .pj-txt{max-width:62ch}
+  .pj-hl{max-width:80%}
+}
+/* touch screens: content scrolls under the project bar, so the bar gets a dark backing */
+@media (max-width:1100px) and (hover:none){
+  #project .p-bar{mix-blend-mode:normal;background:linear-gradient(rgba(0,0,0,.85) 55%,rgba(0,0,0,0));padding-bottom:26px}
+}
 #project.see,#project.see .pj-hero{background:transparent !important}
 /* ---------- underline buttons: the line runs off to the right, a new one draws in from the left ---------- */
 .ul{position:relative;display:inline-flex;align-items:center;gap:.4em;padding-bottom:4px}
@@ -800,14 +812,41 @@ form{display:flex;flex-direction:column;gap:9px}
   .p-side{padding-bottom:0}
   .p-brand{display:none}
   .tc .lbl{display:none}
-  .bts{height:auto;padding:100px 0 60px}
-  .bts-head{position:relative;height:auto;padding:0 var(--gx) 30px}
-  .pols{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px;padding:0 var(--gx)}
-  .pol{position:relative;width:auto;left:auto !important;top:auto !important}
+  .pol{width:calc(clamp(140px,40vw,300px) * var(--s,1))}
+  .pol figcaption{font-size:clamp(18px,5vw,26px)}
+  .bts-head h2{font-size:clamp(54px,16vw,120px)}
   }
 @media (prefers-reduced-motion:reduce){
   .kb,.rec b,.hint .bar{animation:none}
   .layer,.row::before,.client::before{transition:none}
+}
+
+/* phone menu */
+.mtoggle{display:none;padding:5px 0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0}
+.mnav{position:fixed;inset:0;z-index:69;background:#000;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--gxr) calc(28px + env(safe-area-inset-bottom,0px)) var(--gx)}
+.mnav ul{list-style:none;margin:0 0 auto;padding:calc(110px + env(safe-area-inset-top,0px)) 0 0}
+.mnav li{overflow:hidden}
+.mnav button{display:block;width:100%;text-align:left;padding:4px 0;font-weight:900;font-stretch:72%;text-transform:uppercase;font-size:clamp(56px,17vw,96px);line-height:.92;letter-spacing:-.01em;color:#fff}
+.mnav-foot{display:flex;justify-content:space-between;gap:16px;margin:0;font-weight:700;font-stretch:88%;font-size:12.5px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+html.mopen .chrome.bottom{visibility:hidden}
+/* touch: the shown row says it opens */
+html:not(.fine) .row.on::after{content:'Open \2192';margin-left:auto;padding-left:12px;font-size:.62em;align-self:center;letter-spacing:.04em}
+@media (max-width:760px){
+  .menu{display:none}
+  .mtoggle{display:block}
+  .w-title{top:calc(78px + env(safe-area-inset-top,0px));width:auto;left:var(--gx)}
+  .w-srcs{top:calc(186px + env(safe-area-inset-top,0px));bottom:auto;left:auto;right:var(--gxr);flex-direction:column;align-items:flex-end;gap:6px}
+}
+/* standing tablets: the list sits low and large, like on a phone but with room */
+@media (min-width:761px) and (max-width:1100px) and (orientation:portrait){
+  .menu{font-size:14px;gap:4px 24px}
+  .sel{left:var(--gx);right:var(--gxr);width:auto;top:auto;bottom:calc(230px + env(safe-area-inset-bottom,0px));transform:none}
+  .row{font-size:clamp(24px,3.6vw,36px)}
+  .meta{max-width:none;right:var(--gxr)}
+  .meta h2{font-size:clamp(60px,9vw,100px)}
+  .ab-head{width:auto;left:var(--gx)}
+  .client{font-size:clamp(20px,2.6vw,26px)}
+  .pol{width:calc(clamp(220px,32vw,330px) * var(--s,1))}
 }
 
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}

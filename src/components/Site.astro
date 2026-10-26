@@ -12,12 +12,16 @@ const m = c.media as any, L = c.local;
 const IMG = (n: string, w = 1600) => m[n]?.img ? `${m[n].img}${m[n].img.includes('?') ? '&' : '?'}w=${w}&auto=format&q=80` : `${L}${n}.jpg`;
 const VID = (n: string) => m[n]?.mp4 ? `${m[n].mp4}${m[n].lo || '720p'}.mp4` : `${L}${n}.mp4`;
 const PST = (n: string) => m[n]?.poster || `${L}${n}-poster.jpg`;
+// a video with a 9:16 version gets no source yet: the script picks landscape or portrait for the screen it lands on
+const SRC = (n: string) => m[n]?.portrait
+  ? `data-l="${VID(n)}" data-lp="${PST(n)}" data-p="${VID(m[n].portrait)}" data-pp="${PST(m[n].portrait)}"`
+  : `src="${VID(n)}" poster="${PST(n)}"`;
 const hero = c.landing[0] || c.projects[0]?.video;
 const s = c.settings as any;
 const html = body
-  .replaceAll('{{HERO_VID}}', VID(hero)).replaceAll('{{HERO_PST}}', PST(hero))
+  .replace('src="{{HERO_VID}}" poster="{{HERO_PST}}"', SRC(hero))
   .replaceAll('{{ABOUT_IMG}}', IMG(s.aboutImage, 2400))
-  .replaceAll('{{SEA_VID}}', VID(s.contactVideo)).replaceAll('{{SEA_PST}}', PST(s.contactVideo))
+  .replace('src="{{SEA_VID}}" poster="{{SEA_PST}}"', SRC(s.contactVideo))
   .replaceAll('https://www.instagram.com/talesofjustin', s.instagram)
   .replaceAll('https://www.youtube.com/channel/UC0PvefOBdtlUEaqeqwLvdlQ', s.youtube)
   .replaceAll('https://nl.linkedin.com/in/justinnederkoorn', s.linkedin)

@@ -9,7 +9,17 @@
     <a href="#film" data-to="about">About</a>
     <a href="#film" data-to="contact">Contact</a>
   </nav>
+  <button type="button" class="mtoggle" id="mToggle" aria-expanded="false" aria-controls="mNav">Menu</button>
 </header>
+<nav class="mnav" id="mNav" aria-label="Menu" hidden>
+  <ul>
+    <li><button type="button" data-go="work">Work</button></li>
+    <li><button type="button" data-go="archive">Archive</button></li>
+    <li><button type="button" data-go="about">About</button></li>
+    <li><button type="button" data-go="contact">Contact</button></li>
+  </ul>
+  <p class="mnav-foot"><a href="mailto:hello@talesofjustin.com">hello@talesofjustin.com</a><a href="https://www.instagram.com/talesofjustin" target="_blank" rel="noopener">Instagram ↗</a></p>
+</nav>
 <div class="chrome bottom">
   <div class="tc"><span class="lbl" id="scLbl">SC 01 / 04 Reel</span><span id="tc">TC 00:00:00:00</span></div>
   <div class="hint" id="hint"><span>Scroll</span><span class="bar"></span></div>

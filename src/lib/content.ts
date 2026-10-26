@@ -2,7 +2,7 @@
 // With Sanity configured it comes from the CMS; without, from the local seed (the prototype's content).
 import seed from '../data/seed.json';
 
-type Media = Record<string, { img?: string; mp4?: string; hls?: string; poster?: string; hi?: string; lo?: string }>;
+type Media = Record<string, { img?: string; mp4?: string; hls?: string; poster?: string; hi?: string; lo?: string; portrait?: string; fx?: number; fy?: number }>;
 export type Content = typeof seed & { media: Media; local: string; source: 'seed' | 'sanity' };
 
 const env = import.meta.env;
@@ -49,8 +49,9 @@ async function fromSanity(): Promise<Content> {
     if (!media[name]) {
       let url = `https://cdn.sanity.io/images/${PID}/${DS}/${id}-${dim}.${fmt}`;
       // the focus point chosen in the CMS
-      if (i.hotspot) url += `?fp-x=${i.hotspot.x.toFixed(3)}&fp-y=${i.hotspot.y.toFixed(3)}&crop=focalpoint&fit=crop`;
       media[name] = { img: url };
+      // the focus point chosen in the CMS: the site crops around it on every screen shape
+      if (i.hotspot) { media[name].fx = +(i.hotspot.x * 100).toFixed(1); media[name].fy = +(i.hotspot.y * 100).toFixed(1); }
     }
     return name;
   };
@@ -64,6 +65,10 @@ async function fromSanity(): Promise<Content> {
       const base = `https://${BUNNY_HOST}/${id}/`;
       media[name] = { mp4: base + 'play_', hls: base + 'playlist.m3u8', poster: base + 'thumbnail.jpg' };
       vids.push(id);
+    }
+    if (typeof v === 'object' && v) {
+      if (v.portraitId) { const pn = vid(v.portraitId); if (pn) media[name].portrait = pn; }
+      if (typeof v.focus === 'number') media[name].fx = v.focus;
     }
     return name;
   };

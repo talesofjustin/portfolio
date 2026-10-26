@@ -13,11 +13,20 @@
   /* ---------- data: everything comes from the CMS (or the local seed), media through one resolver ---------- */
   var D=window.__TOJ||{},MEDIA=D.media||{},LOCAL=D.local||'/m/',HI=(innerWidth*Math.min(devicePixelRatio||1,2))>1500;
   // a name is either a local file in /m, or a CMS asset: an image on the Sanity CDN or a video on Bunny Stream
-  function IMG(n,w){var m=MEDIA[n];if(!m&&/-poster$/.test(n)){var v=MEDIA[n.slice(0,-7)];if(v)return v.poster}
+  // on a standing screen a video with a 9:16 version plays that one (the full film always stays 16:9)
+  var PORTRAIT=innerHeight>innerWidth*1.05;
+  function V(n){var m=MEDIA[n];return PORTRAIT&&m&&m.portrait&&MEDIA[m.portrait]?m.portrait:n}
+  function IMG(n,w){var m=MEDIA[n];if(!m&&/-poster$/.test(n)){var v=MEDIA[V(n.slice(0,-7))];if(v)return v.poster}
     if(m&&m.img)return m.img+(m.img.indexOf('?')>-1?'&':'?')+'w='+(w||(HI?2400:1600))+'&auto=format&q=80';return LOCAL+n+'.jpg'}
-  function VID(n){var m=MEDIA[n];if(m&&m.mp4)return m.mp4+(HI?m.hi||'1080p':m.lo||'720p')+'.mp4';return LOCAL+n+'.mp4'}
+  function VID(n,keep){if(!keep)n=V(n);var m=MEDIA[n];if(m&&m.mp4)return m.mp4+(HI?m.hi||'1080p':m.lo||'720p')+'.mp4';return LOCAL+n+'.mp4'}
+  [].forEach.call(document.querySelectorAll('video[data-l]'),function(v){var p=PORTRAIT;v.poster=v.dataset[p?'pp':'lp'];v.src=v.dataset[p?'p':'l']});
   function HLS(n){var m=MEDIA[n];return m&&m.hls?m.hls:null}
-  function PST(n){var m=MEDIA[n];if(m&&m.poster)return m.poster;return LOCAL+n+'-poster.jpg'}
+  // the focus point set in the CMS decides how a picture (or a 16:9 video on a phone) is cropped
+  var FOC=[];for(var fk in MEDIA){var fm=MEDIA[fk];if(fm.fx!=null||fm.fy!=null)FOC.push([fm.img||fm.mp4||'',(fm.fx!=null?fm.fx:50)+'% '+(fm.fy!=null?fm.fy:50)+'%'])}
+  function focus(el){var s=el.getAttribute('src')||'';if(!s)return;for(var i=0;i<FOC.length;i++)if(FOC[i][0]&&s.indexOf(FOC[i][0])===0){el.style.objectPosition=FOC[i][1];return}}
+  if(FOC.length){new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(nd){if(nd.nodeType!==1)return;if(nd.matches('img,video'))focus(nd);if(nd.querySelectorAll)[].forEach.call(nd.querySelectorAll('img,video'),focus)})})}).observe(document.documentElement,{childList:true,subtree:true});
+    addEventListener('DOMContentLoaded',function(){[].forEach.call(document.querySelectorAll('img,video'),focus)})}
+  function PST(n){n=V(n);var m=MEDIA[n];if(m&&m.poster)return m.poster;return LOCAL+n+'-poster.jpg'}
   var P=D.projects||[];
   // ledes are neutral placeholder copy
   var SEL=P.map(function(p,i){return p.sel?i:-1}).filter(function(i){return i>-1});
@@ -38,9 +47,9 @@
     h.style.fontSize='';var fs=parseFloat(getComputedStyle(h).fontSize),w=0;
     [].forEach.call(h.querySelectorAll('.abl'),function(l){w=Math.max(w,l.getBoundingClientRect().width)});
     if(!w)return;var cs=getComputedStyle(box),bw=box.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
-    var t=Math.max(22,Math.min(fs*bw/w*.995,124));h.style.fontSize=t+'px';
+    var t=Math.max(18,Math.min(fs*bw/w*.995,124,innerHeight*.11));h.style.fontSize=t+'px';
     // and it never runs into the client list below it
-    var cl=document.getElementById('clients'),hr=h.getBoundingClientRect();if(cl){var room=cl.getBoundingClientRect().top-hr.top-Math.max(28,innerHeight*.05);if(hr.height>room&&room>0)h.style.fontSize=Math.max(22,t*room/hr.height)+'px'}
+    var cl=document.getElementById('clients'),hr=h.getBoundingClientRect();if(cl){var room=cl.getBoundingClientRect().top-hr.top-Math.max(28,innerHeight*.05);if(hr.height>room&&room>0)h.style.fontSize=Math.max(18,t*room/hr.height)+'px'}
   }
   function words(el,mask){
     var out=[];
@@ -154,8 +163,10 @@
     var p=P[i],li=document.createElement('li'),w=document.createElement('span');w.className='wipe';w.style.display='block';
     var b=document.createElement('button');b.className='row'+(k===0?' on':'');b.style.display='flex';b.type='button';b.dataset.i=i;b.setAttribute('data-cursor','Open');
     b.innerHTML='<span class="n">['+pad(k+1)+']</span><span>'+p.title+'</span>';
-    b.addEventListener('mouseenter',function(){if(homeList||!animate)pick(i)});b.addEventListener('focus',function(){pick(i)});
-    b.addEventListener('click',function(){openProject(i,null)});
+    var tapWas=null;
+    b.addEventListener('pointerdown',function(e){tapWas=e.pointerType==='mouse'?null:active===i});
+    b.addEventListener('mouseenter',function(){if(tapWas===null&&(homeList||!animate))pick(i)});b.addEventListener('focus',function(){if(tapWas===null)pick(i)});
+    b.addEventListener('click',function(){var w=tapWas;tapWas=null;if(w===false){pick(i);return}openProject(i,null)});
     w.appendChild(b);li.appendChild(w);rowsEl.appendChild(li);rowEls.push(b);rowWraps.push(w);
   });
   setMeta(P[0]);
@@ -509,11 +520,13 @@
   function sayFit(){var s=q('say');if(s.scrollHeight>s.clientHeight+2)s.setAttribute('data-lenis-prevent','');else s.removeAttribute('data-lenis-prevent')}
   sayFit();addEventListener('resize',sayFit);
 
-  var XF=animate&&innerWidth>760;
+  var XF=animate;
   if(XF)document.documentElement.classList.add('xf');
   fitAb();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAb);if(!animate)addEventListener('resize',fitAb);
   if(animate){
     gsap.registerPlugin(ScrollTrigger);
+    // phones: the address bar coming and going must not make the page jump
+    ScrollTrigger.config({ignoreMobileResize:true});
     var openW=words(q('openHead'),true);
     var abW=words(q('abHead'));
     var sayW=words(q('sayHead'),false);
@@ -601,8 +614,8 @@
       var li=document.createElement('li');li.className='pol';li.style.left=b[2]+'%';li.style.top=b[3]+'%';li.style.setProperty('--r',b[4]+'deg');li.style.setProperty('--s',b[5]);
       li.innerHTML='<figure><div><img crossorigin="anonymous" src="'+IMG(b[0])+'" alt="'+b[1]+'" loading="lazy"></div><figcaption>'+b[1]+'</figcaption></figure>';
       q('pols').appendChild(li);
-      if(innerWidth>760)gsap.fromTo(li,{rotation:(k%2?-1:1)*5,x:(k%2?1:-1)*24},{rotation:(k%2?1:-1)*4,x:(k%2?-1:1)*18,ease:'none',scrollTrigger:{trigger:'#bts',start:'top bottom',end:'bottom top',scrub:1.4}});
-      if(innerWidth>760)gsap.fromTo(li,{y:0},{y:function(){return -innerHeight*[.22,.5,.32,.62,.15,.42,.28,.55,.36,.2,.48,.3][k]},ease:'none',scrollTrigger:{trigger:'#bts',start:'top bottom',end:'bottom top',scrub:1+(k%4)*.35}});
+      gsap.fromTo(li,{rotation:(k%2?-1:1)*5,x:(k%2?1:-1)*24},{rotation:(k%2?1:-1)*4,x:(k%2?-1:1)*18,ease:'none',scrollTrigger:{trigger:'#bts',start:'top bottom',end:'bottom top',scrub:1.4}});
+      gsap.fromTo(li,{y:0},{y:function(){return -innerHeight*[.22,.5,.32,.62,.15,.42,.28,.55,.36,.2,.48,.3][k]},ease:'none',scrollTrigger:{trigger:'#bts',start:'top bottom',end:'bottom top',scrub:1+(k%4)*.35}});
     });
 
     var btsW=words(q('btsHead').querySelector('.serif'),true);
@@ -625,7 +638,7 @@
       xfSet();
       var xs={p:0},polsEl=q('pols');
       function xfDraw(){
-        var p=xs.p,W=innerWidth,H=innerHeight,pw=Math.min(430,Math.max(250,W*.25))*1.05,ph=pw*1.22;
+        var p=xs.p,W=innerWidth,H=innerHeight,pw=(W<=760?Math.min(300,Math.max(150,W*.44)):Math.min(430,Math.max(250,W*.25)))*1.05,ph=pw*1.22;
         var rise=Math.min(1,p/.5),grow=Math.max(0,(p-.5)/.5),e=grow<.5?4*grow*grow*grow:1-Math.pow(-2*grow+2,3)/2,er=1-Math.pow(1-rise,3);
         var w=pw+(W-pw)*e,h=ph+(H-ph)*e,pad=pw*.056*(1-e),bot=ph*.2*(1-e);
         // the other prints clear off the table as this one comes up
@@ -723,6 +736,9 @@
     c.addEventListener('click',function(){openProject(i,c.querySelector('.cimg'))});
     grid.appendChild(c);cards.push(c);
   });
+  var tapIO=!fine&&'IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting)play(v);else v.pause()})},{threshold:.6}):null;
+  function tapPlay(root){if(tapIO)[].forEach.call(root.querySelectorAll('video'),function(v){tapIO.observe(v)})}
+  tapPlay(grid);
   var empty=document.createElement('p');empty.className='a-empty';empty.textContent='Nothing here yet. Try another one.';empty.hidden=true;grid.appendChild(empty);
   var medBtns=[],kindBtns=[];
   [['','Film & photo'],['Film','Film'],['Photo','Photo']].forEach(function(m){var b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.textContent=m[1];b.addEventListener('click',function(){sel.med=m[0];applyFilters(true)});q('fmed').appendChild(b);medBtns.push([m[0],b])});
@@ -828,6 +844,7 @@
     if(p.credits&&p.credits.length)cr=p.credits;q('pCred').hidden=off('credits');
     q('pcList').innerHTML=cr.map(function(r){return '<div><dt>'+r[0]+'</dt>'+(r[1]?'<dd>'+r[1]+'</dd>':tbd)+'</div>'}).join('');
     // more work: four others
+    tapPlay(fr);
     var g=q('pmGrid');g.innerHTML='';
     for(var k=1;k<=4;k++){(function(n){var c=cardFor(n);c.addEventListener('click',function(){openProject(n,c.querySelector('.cimg'))});g.appendChild(c)})((i+k)%P.length)}
     project.scrollTop=0;if(plenis)plenis.scrollTo(0,{immediate:true});
@@ -862,8 +879,8 @@
   // the full film streams adaptively (HLS): the quality follows the screen and the connection
   function loadHls(){if(!hlsP)hlsP=new Promise(function(ok,no){var t=document.createElement('script');t.src='/vendor/hls.light.min.js';t.onload=function(){ok(window.Hls)};t.onerror=no;document.head.appendChild(t)});return hlsP}
   function vpOpen(name){var v=q('vpVid'),h=HLS(name);if(hlsI){hlsI.destroy();hlsI=null}v.muted=false;q('vp').hidden=false;
-    if(h&&!v.canPlayType('application/vnd.apple.mpegurl'))loadHls().then(function(Hls){if(Hls&&Hls.isSupported()){hlsI=new Hls({capLevelToPlayerSize:true});hlsI.loadSource(h);hlsI.attachMedia(v);play(v)}else{v.src=VID(name);play(v)}},function(){v.src=VID(name);play(v)});
-    else{v.src=h||VID(name);play(v)}if(animate)gsap.fromTo('#vp',{opacity:0},{opacity:1,duration:.4})}
+    if(h&&!v.canPlayType('application/vnd.apple.mpegurl'))loadHls().then(function(Hls){if(Hls&&Hls.isSupported()){hlsI=new Hls({capLevelToPlayerSize:true});hlsI.loadSource(h);hlsI.attachMedia(v);play(v)}else{v.src=VID(name,1);play(v)}},function(){v.src=VID(name,1);play(v)});
+    else{v.src=h||VID(name,1);play(v)}if(animate)gsap.fromTo('#vp',{opacity:0},{opacity:1,duration:.4})}
   function vpClose(){var v=q('vpVid');v.pause();var done=function(){q('vp').hidden=true;if(hlsI){hlsI.destroy();hlsI=null}v.removeAttribute('src');v.load()};if(animate)gsap.to('#vp',{opacity:0,duration:.3,onComplete:done});else done()}
   q('vpX').addEventListener('click',vpClose);q('vp').addEventListener('click',function(e){if(e.target===this)vpClose()});
   addEventListener('keydown',function(e){if(e.key==='Escape'&&!q('vp').hidden){e.stopImmediatePropagation();vpClose()}},true);
@@ -1007,6 +1024,16 @@
   q('pCountBtn').addEventListener('click',toArchive);
   q('pmAll').addEventListener('click',toArchive);
   addEventListener('keydown',function(e){if(e.key==='Escape'){if(project.classList.contains('open'))closePage(project);else closePage(archive)}});
+
+  /* ---------- phone menu ---------- */
+  (function(){var t=q('mToggle'),n=q('mNav');if(!t||!n)return;
+    function set(open){t.setAttribute('aria-expanded',open?'true':'false');t.textContent=open?'Close':'Menu';document.documentElement.classList.toggle('mopen',open);
+      if(open){n.hidden=false;if(lenis)lenis.stop();if(window.gsap&&!reduce)gsap.fromTo(n.querySelectorAll('li, .mnav-foot'),{yPercent:60,opacity:0},{yPercent:0,opacity:1,duration:.7,stagger:.06,ease:'expo.out'})}
+      else{n.hidden=true;if(lenis&&!document.documentElement.classList.contains('locked'))lenis.start()}}
+    t.addEventListener('click',function(){set(t.getAttribute('aria-expanded')!=='true')});
+    [].forEach.call(n.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){set(false);var g=b.dataset.go,el=g==='archive'?document.querySelector('.menu [data-archive]'):document.querySelector('.menu [data-to="'+g+'"]');if(el)el.click()})});
+    addEventListener('keydown',function(e){if(e.key==='Escape'&&!n.hidden)set(false)});
+  })();
 
   /* ---------- addresses: every project has its own url (/work/slug), back and forward work ---------- */
   var BASE_T=document.title.split(' \u2014 ').pop().split(' — ').pop();
